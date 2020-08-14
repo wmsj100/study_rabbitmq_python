@@ -1,10 +1,7 @@
-import pika
 import time
+from connect_rabbit import connect
 
-credentials = pika.PlainCredentials('user1', 'pwd')
-parameter = pika.ConnectionParameters('rabbit', 5672, 'vhost_user1', credentials)
-connection = pika.BlockingConnection(parameter)
-channel = connection.channel()
+connection, channel = connect()
 channel.queue_declare(queue='test02', durable=True)
 
 def callback(ch, method, properties, body):
